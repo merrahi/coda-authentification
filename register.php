@@ -1,3 +1,6 @@
+<?php
+require_once "classes/User.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +11,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form action="" method="post">
     <div class="form-group">
         <label for="exampleInputUsername">Username</label>
         <input type="text" class="form-control" name="username" id="exampleInputUsername1" aria-describedby="UsernameHelp" placeholder="Enter Username">
@@ -19,6 +22,16 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <?php
+        if(isset($_POST["username"]) && isset($_POST["password"])){
+            $user = new User();
+            if($user->register($_POST["username"], $_POST["password"])){
+                echo "User registered";
+            }else{
+                echo "User registation error";
+            }
+        }
+    ?>
 </body>
 </html>
 
