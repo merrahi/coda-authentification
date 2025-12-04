@@ -17,8 +17,11 @@ require_once "classes/User.php";
     if (isset($_POST['userName']) && isset($_POST['password'])) {
         $user = new User();
         if ($user->login($_POST['userName'], $_POST['password'])) {
-            echo '<div class="alert alert-success" role="alert">
-                User login success </div>';
+            $user->createSession($_POST);
+            if(isset($_POST['rememberMe'])){
+               $user->rememberUser($_POST); 
+            }
+            header("location: profile.php");
         } else {
             echo '<div class="alert alert-danger" role="alert">
                 User not logged </div>';

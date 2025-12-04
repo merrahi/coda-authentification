@@ -32,4 +32,15 @@ class User{
         }
         return false;
     }
+
+    public function createSession(array $userSessionData) {
+        session_start();
+        $userSessionValue = implode(':', $userSessionData);    
+        $_SESSION['user'] = md5($userSessionValue);
+    }
+
+    public function rememberUser(array $rememberMeData) {
+        $rememberUserValue = implode(':', $rememberMeData);    
+        setcookie('userCookie', md5($rememberUserValue), time()+180); // La durée de vie est de 3 minutes.
+    }
 }
