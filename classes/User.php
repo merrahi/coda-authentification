@@ -22,4 +22,14 @@ class User{
         $this->fileHandler->addToFile($newUser);
         return true;
     }
+    public function login(string $username, string $password) {
+        $this->fileHandler->getFile();
+        $userlist = $this->fileHandler->readData;
+        foreach ($userlist as $user) {
+            if ($user['username'] == $username && $user['passwordHash'] == md5($password)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
