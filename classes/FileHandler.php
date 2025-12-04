@@ -2,20 +2,19 @@
 
 class FileHandler{
     public array $readData;
+    const FILE_URL = __DIR__.'/../users.json';
 
     public function getFile(){
-        $usersData = file_get_contents('../users.json');
+        $usersData = file_get_contents(self::FILE_URL);
         $this->readData = json_decode($usersData, true) ?? [];
     }
 
     public function addToFile(array $dataToAdd){
         $this->readData[] = $dataToAdd;
-        var_dump($this->readData);
-        var_dump(json_encode($this->readData));
         try {
-            file_put_contents("../users.json", json_encode($this->readData), 0);
+            file_put_contents(self::FILE_URL, json_encode($this->readData), 0);
         } catch (Exception $e) {
-            var_dump($e);
+            die("error" . $e->getMessage());
         }
     }
 }
