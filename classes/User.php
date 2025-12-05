@@ -44,4 +44,10 @@ class User{
         $rememberUserValue = implode(':', $rememberMeData);    
         setcookie('userCookie', md5($rememberUserValue), time()+180); // La durée de vie est de 3 minutes.
     }
+
+    public function getUsers(): array {
+        $this->fileHandler->getFile();
+        return $this->fileHandler->readData ?? [];
+    }
+    
 }
