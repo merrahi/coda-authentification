@@ -35,7 +35,8 @@ class User{
 
     public function createSession(array $userSessionData) {
         session_start();
-        $userSessionValue = implode(':', $userSessionData);    
+        $userSessionValue = implode(':', $userSessionData); 
+        $_SESSION['userName'] = $userSessionData['userName'];   
         $_SESSION['user'] = md5($userSessionValue);
     }
 
