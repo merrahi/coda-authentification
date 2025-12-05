@@ -49,5 +49,16 @@ class User{
         $this->fileHandler->getFile();
         return $this->fileHandler->readData ?? [];
     }
+
+    public function deleteUser(?int $userId) {
+        $this->fileHandler->getFile();
+        $userList = $this->fileHandler->readData ?? [];
+        $this->fileHandler->readData = array_filter($userList, function ($value) use ($userId) {
+            return $value['id'] != $userId;
+        });
+        return $this->fileHandler->rewriteFile() ? true : false;
+    }
     
+
+
 }
