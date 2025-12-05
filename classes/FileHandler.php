@@ -17,4 +17,15 @@ class FileHandler{
             die("error" . $e->getMessage());
         }
     }
+
+    public function rewriteFile(): bool{
+        try {
+            file_put_contents(self::FILE_URL, json_encode($this->readData), 0);
+            return true;
+        } catch (Exception $e) {
+            die("error" . $e->getMessage());
+            return false;
+        }
+        return false;
+    }
 }

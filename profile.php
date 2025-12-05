@@ -4,6 +4,7 @@ session_start();
 if (!isset($_SESSION['user']) && !isset($_COOKIE[('userCookie')])) {
     header('location: login.php');
 }
+$isDeleted = $_GET['delete'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +43,18 @@ if (!isset($_SESSION['user']) && !isset($_COOKIE[('userCookie')])) {
     ?>
     <div class="hellow-user"> <span class=""> Bonjour <?php echo $_SESSION['userName'] ?? ""; ?> </span> <a
             href="logout.php" class="btn btn-primary toright" tabindex="-1" role="button"
-            aria-disabled="true">Logout</a> </div>
+            aria-disabled="true">Logout</a>
+        </div>
+        <?php 
+            if($isDeleted){
+                echo '<div class="alert alert-success" role="alert">
+                User deleted </div>';
+            } else {
+                echo '<div class="alert alert-danger" role="alert">
+                User not deleted </div>';
+            }
+        ?>
+
     <table class="table table-sm">
         <thead>
             <tr>
@@ -60,7 +72,7 @@ if (!isset($_SESSION['user']) && !isset($_COOKIE[('userCookie')])) {
                     <td><?= $user["passwordHash"] ?></td>
                     <td>
                         <a href="edit.php" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">Edit</a>
-                        <a href="delete.php" class="btn btn-danger" tabindex="-1" role="button"
+                        <a href="delete.php?user_id=<?= $user['id'] ?>" class="btn btn-danger" tabindex="-1" role="button"
                             aria-disabled="true">Delete</a>
                     </td>
                 </tr>
